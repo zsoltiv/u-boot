@@ -1,8 +1,7 @@
 if ARCH_MESON
 
-config MESON64_COMMON
+config MESON_COMMON
 	bool
-	select ARM64
 	select CLK
 	select DM
 	select DM_SERIAL
@@ -13,6 +12,11 @@ config MESON64_COMMON
 	select BOARD_LATE_INIT
 	select MESON_SM
 	imply CMD_DM
+
+config MESON64_COMMON
+	bool
+	select MESON_COMMON
+    select ARM64
 
 config MESON_GX
 	bool
@@ -63,6 +67,12 @@ config MESON_A1
 	help
 	  Select this if your SoC is an A113L
 
+config MESON_M8M2
+    bool "M8M2"
+    select MESON_COMMON
+    help
+        Select this if your SoC is an S812
+
 endchoice
 
 config SYS_SOC
@@ -87,6 +97,7 @@ config SYS_BOARD
 	default "q200" if MESON_GXM
 	default "s400" if MESON_AXG
 	default "u200" if MESON_G12A
+    default "mxiii" if MESON_M8M2
 	default ""
 	help
 	  This option contains information about board name.
